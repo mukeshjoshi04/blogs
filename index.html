@@ -33,20 +33,23 @@
         .glass-card:hover {
             box-shadow: 0 10px 40px 0 rgba(31, 38, 135, 0.2);
         }
-
-        /* Spinning animation for loading state */
-        .spinner {
-            border: 4px solid rgba(255, 255, 255, 0.3);
-            border-top: 4px solid #fff;
-            border-radius: 50%;
-            width: 24px;
-            height: 24px;
-            animation: spin 1s linear infinite;
+        /* Custom classes for the search input animation */
+        .search-input-hidden {
+            width: 0;
+            padding-left: 0;
+            padding-right: 0;
+            opacity: 0;
         }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        .search-input-visible {
+            width: 144px; /* Default width for mobile */
+            padding-left: 1rem; /* px-4 */
+            padding-right: 1rem; /* px-4 */
+            opacity: 1;
+        }
+        @media (min-width: 640px) { /* sm breakpoint */
+            .search-input-visible {
+                width: 192px; /* sm:w-48 */
+            }
         }
     </style>
 </head>
@@ -59,12 +62,30 @@
             <h1 class="text-3xl md:text-4xl font-extrabold text-cyan-600 tracking-tight">
                 Mukesh Joshi Blogs
             </h1>
-            <!-- Simple Navigation Links (Hidden on small screens) -->
-            <nav class="space-x-4 hidden sm:block">
-                <a href="#" class="text-gray-600 hover:text-cyan-600 font-semibold transition duration-200">Home</a>
-                <a href="#" class="text-gray-600 hover:text-cyan-600 font-semibold transition duration-200">About</a>
-                <a href="#" class="text-gray-600 hover:text-cyan-600 font-semibold transition duration-200">Contact</a>
-            </nav>
+            
+            <!-- Navigation and Search -->
+            <div class="flex items-center space-x-2">
+                <!-- Simple Navigation Links (Hidden on medium screens and up) -->
+                <nav class="space-x-4 hidden md:block">
+                    <a href="#" class="text-gray-600 hover:text-cyan-600 font-semibold transition duration-200">Home</a>
+                    <a href="#" class="text-gray-600 hover:text-cyan-600 font-semibold transition duration-200">About</a>
+                    <a href="#" class="text-gray-600 hover:text-cyan-600 font-semibold transition duration-200">Contact</a>
+                </nav>
+                
+                <!-- Search Input and Button Container -->
+                <div class="flex items-center space-x-2">
+                    <!-- Search Input Field (Hidden by default, slides out on click) -->
+                    <input type="text" id="searchInput" placeholder="Search blog..."
+                           class="search-input-hidden transition-all duration-300 ease-in-out h-10 py-2 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-cyan-500"
+                           aria-label="Search input field">
+
+                    <!-- Search Toggle Button -->
+                    <button id="searchButton" onclick="toggleSearch()" aria-label="Toggle Search"
+                            class="p-2 rounded-full text-gray-600 hover:text-cyan-600 hover:bg-gray-100 transition duration-200 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-opacity-50">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                    </button>
+                </div>
+            </div>
         </div>
     </header>
 
@@ -89,14 +110,14 @@
             </p>
             
             <!-- Email Signup Placeholder (Glassmorphism Card) -->
-            <div class="glass-card p-6 sm:p-10 rounded-3xl w-full mx-auto mb-8">
+            <div class="glass-card p-6 sm:p-10 rounded-3xl w-full mx-auto max-w-lg">
                 <p class="text-gray-800 text-xl font-bold mb-5">
                     Don't miss the first post. Get exclusive launch updates!
                 </p>
                 <div class="flex flex-col sm:flex-row gap-4 justify-center">
                     <!-- Input field (Responsive width) -->
                     <input type="email" placeholder="Enter your best email address..." 
-                           class="w-full sm:w-80 px-5 py-3 rounded-xl text-gray-900 placeholder-gray-500 bg-white/70 border border-gray-300 focus:outline-none focus:ring-4 focus:ring-cyan-500 transition duration-300 shadow-sm" 
+                           class="w-full sm:flex-grow px-5 py-3 rounded-xl text-gray-900 placeholder-gray-500 bg-white/70 border border-gray-300 focus:outline-none focus:ring-4 focus:ring-cyan-500 transition duration-300 shadow-sm" 
                            aria-label="Email subscription">
                     
                     <!-- Button (Responsive width, primary action) -->
@@ -105,21 +126,6 @@
                         Notify Me
                     </button>
                 </div>
-            </div>
-
-            <!-- New Gemini Feature Button -->
-            <div class="w-full max-w-lg mx-auto">
-                 <button id="brainstormButton" onclick="generateCreativeIdeas()" 
-                         class="w-full px-8 py-3 rounded-xl bg-indigo-500 text-white font-bold tracking-wider text-lg
-                                hover:bg-indigo-600 transition duration-300 shadow-lg hover:shadow-indigo-400/50 flex items-center justify-center space-x-2">
-                    <span id="buttonText">✨ Brainstorm Creative Ideas</span>
-                    <div id="loadingIndicator" class="spinner hidden"></div>
-                </button>
-            </div>
-           
-            <!-- Brainstorm Results Area -->
-            <div id="brainstorm-results" class="mt-12 text-left w-full max-w-2xl mx-auto">
-                <!-- Results will be injected here -->
             </div>
 
         </div>
@@ -132,126 +138,22 @@
         </div>
     </footer>
 
-    <!-- JavaScript for Gemini API Integration -->
     <script>
-        const API_KEY = ""; // Automatically provided by the environment
-        const API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent";
-        
-        const resultsDiv = document.getElementById('brainstorm-results');
-        const brainstormButton = document.getElementById('brainstormButton');
-        const loadingIndicator = document.getElementById('loadingIndicator');
-        const buttonText = document.getElementById('buttonText');
-
-        // Utility function for exponential backoff
-        async function makeApiCall(payload, retries = 3) {
-            for (let i = 0; i < retries; i++) {
-                try {
-                    const response = await fetch(`${API_URL}?key=${API_KEY}`, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
-                    });
-
-                    if (response.status === 429 && i < retries - 1) {
-                        // Rate limit error, wait and retry
-                        const delay = Math.pow(2, i) * 1000 + Math.random() * 1000;
-                        await new Promise(resolve => setTimeout(resolve, delay));
-                        continue;
-                    }
-
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! status: ${response.status}`);
-                    }
-
-                    return response.json();
-                } catch (error) {
-                    if (i === retries - 1) {
-                        throw error;
-                    }
-                }
-            }
-        }
-
-        async function generateCreativeIdeas() {
-            // Disable button and show loading state
-            brainstormButton.disabled = true;
-            buttonText.textContent = 'Brainstorming...';
-            loadingIndicator.classList.remove('hidden');
-            resultsDiv.innerHTML = '';
+        function toggleSearch() {
+            const input = document.getElementById('searchInput');
             
-            const systemPrompt = "Act as a highly creative content strategist. Your goal is to generate inspiring ideas for a personal blog focusing on the theme: 'How modern technology is fundamentally changing our daily experiences, relationships, and the way we live.' Provide output strictly as a JSON object.";
-
-            const userQuery = "Generate 3 highly creative and inspiring alternative taglines for the blog, and 3 specific, engaging blog post titles based on the theme. The post titles should blend technology concepts with relatable life experiences.";
-
-            const payload = {
-                contents: [{ parts: [{ text: userQuery }] }],
-                systemInstruction: { parts: [{ text: systemPrompt }] },
-                generationConfig: {
-                    responseMimeType: "application/json",
-                    responseSchema: {
-                        type: "OBJECT",
-                        properties: {
-                            "taglines": {
-                                "type": "ARRAY",
-                                "description": "Three alternative taglines.",
-                                "items": { "type": "STRING" }
-                            },
-                            "post_titles": {
-                                "type": "ARRAY",
-                                "description": "Three engaging blog post titles.",
-                                "items": { "type": "STRING" }
-                            }
-                        }
-                    }
-                }
-            };
-
-            try {
-                const response = await makeApiCall(payload);
-                const jsonText = response.candidates?.[0]?.content?.parts?.[0]?.text;
-                
-                if (!jsonText) {
-                    resultsDiv.innerHTML = '<p class="text-red-500 mt-4">Error: Could not retrieve creative ideas. The model returned no content.</p>';
-                    return;
-                }
-
-                const data = JSON.parse(jsonText);
-                
-                // --- Render Results ---
-                let html = `
-                    <div class="p-6 rounded-xl bg-white shadow-xl border border-gray-200 transition duration-300 hover:shadow-2xl">
-                        <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center">
-                            <svg class="w-6 h-6 mr-2 text-indigo-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 2a8 8 0 100 16 8 8 0 000-16zM6 10a4 4 0 118 0 4 4 0 01-8 0z" /></svg>
-                            Creative Brainstorm Results
-                        </h3>
-                        
-                        <div class="mb-6">
-                            <p class="text-lg font-semibold text-gray-700 mb-2">Alternative Taglines:</p>
-                            <ul class="list-disc pl-5 space-y-2 text-gray-600">
-                                ${data.taglines.map(t => `<li class="font-medium bg-gray-50 p-2 rounded">${t}</li>`).join('')}
-                            </ul>
-                        </div>
-                        
-                        <div>
-                            <p class="text-lg font-semibold text-gray-700 mb-2">Draft Post Titles:</p>
-                            <ul class="list-decimal pl-5 space-y-2 text-gray-600">
-                                ${data.post_titles.map(p => `<li class="bg-gray-50 p-2 rounded italic">${p}</li>`).join('')}
-                            </ul>
-                        </div>
-                    </div>
-                `;
-                resultsDiv.innerHTML = html;
-
-            } catch (error) {
-                console.error("Gemini API call failed:", error);
-                resultsDiv.innerHTML = '<p class="text-red-500 mt-4">Sorry, I ran into an error generating the ideas. Please try again!</p>';
-            } finally {
-                // Re-enable button and hide loading state
-                brainstormButton.disabled = false;
-                buttonText.textContent = '✨ Brainstorm Creative Ideas';
-                loadingIndicator.classList.add('hidden');
+            if (input.classList.contains('search-input-hidden')) {
+                // Show search input
+                input.classList.remove('search-input-hidden');
+                input.classList.add('search-input-visible');
+                input.focus();
+            } else {
+                // Hide search input
+                input.classList.remove('search-input-visible');
+                input.classList.add('search-input-hidden');
             }
         }
     </script>
+
 </body>
 </html>
