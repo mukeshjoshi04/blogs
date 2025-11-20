@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <!-- CRITICAL FOR RESPONSIVENESS: Ensures scaling works correctly on all devices -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mukesh Joshi Blogs - Launching Soon</title>
     <!-- Load Tailwind CSS -->
@@ -46,13 +47,15 @@
                 Exploring how modern technology is fundamentally changing our daily experiences, relationships, and the way we live.
             </p>
             
-            <!-- Email Signup Placeholder -->
+            <!-- Email Signup Placeholder (Responsive Flex Layout) -->
             <div class="bg-cyan-800/30 p-6 rounded-xl">
                 <p class="text-white text-lg font-semibold mb-4">
                     Be the first to know when the first post drops!
                 </p>
                 <div class="flex flex-col sm:flex-row gap-3 justify-center">
+                    <!-- On mobile (default), input is w-full (100% width). On small screens (sm:), it shrinks to w-80. -->
                     <input type="email" placeholder="Enter your email for updates..." class="w-full sm:w-80 px-5 py-3 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-cyan-400 shadow-inner" aria-label="Email subscription">
+                    <!-- Button remains full width on mobile due to the parent flex-col, ensuring an easy touch target. -->
                     <button class="px-6 py-3 rounded-lg bg-cyan-400 text-gray-900 font-semibold hover:bg-cyan-300 transition duration-200 shadow-lg active:shadow-none">
                         Notify Me
                     </button>
