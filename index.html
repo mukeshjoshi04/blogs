@@ -3,24 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Infrastructure Path - DevOps & Cloud Engineering</title>
+    <title>Mukesh Joshi Blogs - Launching Soon</title>
     <!-- Load Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Custom font import (Inter is often the default, but we ensure it) */
+        /* Custom font import */
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
         body {
             font-family: 'Inter', sans-serif;
             background-color: #f7f9fb; /* Light background for a clean look */
-        }
-        /* Custom shadows and transition for creative feel */
-        .post-card {
-            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-        }
-        .post-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
     </style>
 </head>
@@ -29,7 +23,7 @@
     <!-- Header Section (Navigation & Title) -->
     <header class="bg-white shadow-md sticky top-0 z-10">
         <div class="max-w-4xl mx-auto px-4 py-6 flex justify-between items-center">
-            <!-- Blog Title (DevOps Focused Branding - Updated with Mukesh Joshi's name) -->
+            <!-- Blog Title (Branding) -->
             <h1 class="text-3xl font-extrabold text-cyan-700 tracking-tight">
                 Mukesh Joshi Blogs
             </h1>
@@ -42,120 +36,33 @@
         </div>
     </header>
 
-    <!-- Hero Section (Introduction - Cyan Theme) -->
-    <section class="bg-cyan-700 text-white py-16 mb-10">
-        <div class="max-w-4xl mx-auto px-4 text-center">
-            <h2 class="text-5xl font-extrabold mb-4">Mastering the Art of Automation</h2>
-            <p class="text-cyan-200 text-xl max-w-2xl mx-auto">
-                Practical guides and deep dives into AWS, Kubernetes, Ansible, and the latest CI/CD methodologies.
+    <!-- Coming Soon Content Section (Fills the center of the page) -->
+    <section class="bg-cyan-700 text-white py-24 flex-grow flex items-center justify-center">
+        <div class="max-w-xl mx-auto px-4 text-center">
+            <h2 class="text-6xl font-extrabold mb-4 animate-pulse">
+                Tech, Life, and Transformation.
+            </h2>
+            <p class="text-cyan-200 text-xl max-w-2xl mx-auto mb-8">
+                Exploring how modern technology is fundamentally changing our daily experiences, relationships, and the way we live.
             </p>
+            
+            <!-- Email Signup Placeholder -->
+            <div class="bg-cyan-800/30 p-6 rounded-xl">
+                <p class="text-white text-lg font-semibold mb-4">
+                    Be the first to know when the first post drops!
+                </p>
+                <div class="flex flex-col sm:flex-row gap-3 justify-center">
+                    <input type="email" placeholder="Enter your email for updates..." class="w-full sm:w-80 px-5 py-3 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-cyan-400 shadow-inner" aria-label="Email subscription">
+                    <button class="px-6 py-3 rounded-lg bg-cyan-400 text-gray-900 font-semibold hover:bg-cyan-300 transition duration-200 shadow-lg active:shadow-none">
+                        Notify Me
+                    </button>
+                </div>
+            </div>
         </div>
     </section>
-
-    <!-- Main Content Area (Blog Post Grid) -->
-    <main class="max-w-4xl mx-auto px-4 pb-16">
-        <h3 class="text-3xl font-bold text-gray-800 mb-8 border-b-2 border-cyan-200 pb-2">Latest Deployments</h3>
-        
-        <!-- Blog Post Grid Container -->
-        <!-- On small screens, posts stack (grid-cols-1). On medium/large screens, they arrange in 2 columns. -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            
-            <!-- START MOCK BLOG POST 1: Kubernetes Focus -->
-            <article class="post-card bg-white p-6 rounded-xl border border-gray-100">
-                <div class="mb-4">
-                    <span class="text-sm font-semibold text-red-500 bg-red-50 px-3 py-1 rounded-full">KUBERNETES</span>
-                </div>
-                <h4 class="text-2xl font-bold text-gray-900 mb-3 hover:text-cyan-700 transition duration-150 cursor-pointer">
-                    Demystifying K8s: A Beginner's Guide to Deploying Your First Pod
-                </h4>
-                <p class="text-gray-600 mb-4">
-                    Get started with container orchestration. We walk through the core concepts of Pods and YAML manifests using a simple example.
-                </p>
-                <div class="flex justify-between items-center text-sm text-gray-500">
-                    <span class="font-medium">March 12, 2025</span>
-                    <a href="#" class="text-cyan-600 hover:text-cyan-800 font-semibold flex items-center">
-                        Read Guide 
-                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                    </a>
-                </div>
-            </article>
-            <!-- END MOCK BLOG POST 1 -->
-
-            <!-- START MOCK BLOG POST 2: CI/CD Focus -->
-            <article class="post-card bg-white p-6 rounded-xl border border-gray-100">
-                <div class="mb-4">
-                    <span class="text-sm font-semibold text-emerald-500 bg-emerald-50 px-3 py-1 rounded-full">CI/CD</span>
-                </div>
-                <h4 class="text-2xl font-bold text-gray-900 mb-3 hover:text-cyan-700 transition duration-150 cursor-pointer">
-                    Building a Resilient CI/CD Pipeline with Jenkins and GitHub Actions
-                </h4>
-                <p class="text-gray-600 mb-4">
-                    Comparing two powerful automation tools and structuring a pipeline that guarantees zero-downtime deployments. 
-                </p>
-                <div class="flex justify-between items-center text-sm text-gray-500">
-                    <span class="font-medium">February 28, 2025</span>
-                    <a href="#" class="text-cyan-600 hover:text-cyan-800 font-semibold flex items-center">
-                        Read Guide 
-                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                    </a>
-                </div>
-            </article>
-            <!-- END MOCK BLOG POST 2 -->
-
-            <!-- START MOCK BLOG POST 3: Ansible/IaC Focus -->
-            <article class="post-card bg-white p-6 rounded-xl border border-gray-100">
-                <div class="mb-4">
-                    <span class="text-sm font-semibold text-sky-500 bg-sky-50 px-3 py-1 rounded-full">AUTOMATION</span>
-                </div>
-                <h4 class="text-2xl font-bold text-gray-900 mb-3 hover:text-cyan-700 transition duration-150 cursor-pointer">
-                    Automating AWS EC2 Setup using Ansible Playbooks
-                </h4>
-                <p class="text-gray-600 mb-4">
-                    Infrastructure as Code (IaC) simplified. Learn how to write your first idempotent Ansible playbook to provision resources on AWS.
-                </p>
-                <div class="flex justify-between items-center text-sm text-gray-500">
-                    <span class="font-medium">February 15, 2025</span>
-                    <a href="#" class="text-cyan-600 hover:text-cyan-800 font-semibold flex items-center">
-                        Read Code 
-                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                    </a>
-                </div>
-            </article>
-            <!-- END MOCK BLOG POST 3 -->
-
-            <!-- START MOCK BLOG POST 4: AWS/Security Focus -->
-            <article class="post-card bg-white p-6 rounded-xl border border-gray-100">
-                <div class="mb-4">
-                    <span class="text-sm font-semibold text-amber-600 bg-amber-50 px-3 py-1 rounded-full">CLOUD</span>
-                </div>
-                <h4 class="text-2xl font-bold text-gray-900 mb-3 hover:text-cyan-700 transition duration-150 cursor-pointer">
-                    Mastering AWS IAM Roles: The Key to Secure Cloud Operations
-                </h4>
-                <p class="text-gray-600 mb-4">
-                    Understanding the difference between IAM users, groups, and roles, and implementing the principle of least privilege in your AWS environment.
-                </p>
-                <div class="flex justify-between items-center text-sm text-gray-500">
-                    <span class="font-medium">January 30, 2025</span>
-                    <a href="#" class="text-cyan-600 hover:text-cyan-800 font-semibold flex items-center">
-                        Read Article 
-                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                    </a>
-                </div>
-            </article>
-            <!-- END MOCK BLOG POST 4 -->
-
-        </div>
-
-        <!-- Call to Action / Archive Link -->
-        <div class="text-center mt-12">
-            <a href="#" class="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-full text-white bg-cyan-600 hover:bg-cyan-700 shadow-lg transition duration-200">
-                Browse All Technical Deep Dives
-            </a>
-        </div>
-    </main>
-
+    
     <!-- Footer Section -->
-    <footer class="bg-gray-800 text-white py-8">
+    <footer class="bg-gray-800 text-white py-8 mt-auto">
         <div class="max-w-4xl mx-auto px-4 text-center text-gray-400">
             <p>&copy; 2025 mukeshjoshiblogs.info. All rights reserved.</p>
             <p class="mt-2 text-sm">Powered by modern infrastructure.</p>
